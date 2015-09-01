@@ -1,0 +1,22 @@
+<table class="table movietable">
+  <tr>
+    <td><h3>Details for {{customer.customerId}}</h3></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Firstname</td>
+    <td>{{customer.firstname}}</td>
+  </tr>
+  <tr>
+    <td>Lastname</td>
+    <td>{{customer.lastname}}</td>
+  </tr>
+  <tr>
+    <td>CustomerId</td>
+    <td>{{customer.customerId}}</td>
+  </tr>
+  
+</table>
+<div>
+  <a class="btn btn-primary" ui-sref="editCustomer({id:customer.customerId})">Edit</a>
+</div>

@@ -1,0 +1,19 @@
+<a ui-sref="newCustomer" class="btn-primary btn-lg nodecoration">Add New Customer</a>
+
+<table class="table customertable">
+  <tr>
+    <td colspan="4"><h3>All Customers {{customers.total_records}}</h3></td>
+    
+  </tr>
+  <tr ng-repeat="customers in customers.customers">
+  
+    <td>{{customers.id}}</td>
+    <td>{{customers.firstname}}</td>
+    <td>{{customers.lastname}} </td>
+    <td>{{customers.customerId}} </td>
+    <td>
+      <a class="btn btn-primary" ui-sref="viewCustomer({id:customers.customerId})">View</a>
+      <a class="btn btn-danger"  ng-click="deleteCustomer(customers.customerId)">Delete</a>
+    </td>
+  </tr>
+</table>

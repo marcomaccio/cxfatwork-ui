@@ -1,0 +1,50 @@
+{
+  "name": "cxfatwork-ui",
+  "version": "1.0.0",
+  "private": false,
+  "description": "A tutorial application for AngularJS",
+  "repository": "https://github.com/marcomaccio/cxfatwork-ui",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "http://rms.maccio-ch.homelinux.net/nexus/content/repositories/mm-npm-internal/",
+    "email": "marco.maccio@marmac.name",
+    "_auth": "YWRtaW46TGF1c2FubmVAMjAxMw=="
+  },
+  "devDependencies": {
+    "bower": "^1.3.1",
+    "gulp": "^3.9.0",
+    "gulp-replace": "^0.5.4",
+    "http-server": "^0.6.1",
+    "karma": "^0.13.9",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-coverage": "^0.5.1",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-jasmine": "~0.1.0",
+    "karma-junit-reporter": "^0.3.4",
+    "karma-mocha": "^0.2.0",
+    "karma-safari-launcher": "^0.1.1",
+    "karma-sinon-chai": "^1.0.0",
+    "mocha": "^2.3.0",
+    "protractor": "^2.1.0",
+    "shelljs": "^0.2.6",
+    "tmp": "0.0.23"
+  },
+  "scripts": {
+    "postinstall": "bower install",
+    "prestart": "npm install",
+    "start": "http-server -a 0.0.0.0 -p 9001",
+    "pretest": "npm install",
+    "test": "node node_modules/karma/bin/karma start src/test/js/karma.conf.js",
+    "test-single-run": "node node_modules/karma/bin/karma start src/test/js/karma.conf.js  --single-run",
+    "preupdate-webdriver": "npm install",
+    "update-webdriver": "webdriver-manager update",
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "protractor src/test/js/protractor-conf.js",
+    "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + cat('bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
+  },
+  "publishConfig": {
+    "registry": "http://rms.maccio-ch.homelinux.net/nexus/content/repositories/mm-npm-internal/",
+    "email": "marco.maccio@marmac.name",
+    "_auth": "YWRtaW46TGF1c2FubmVAMjAxMw=="
+  }
+}
