@@ -18,8 +18,9 @@ cxfTutorialServices.factory('CustomerService', ['$resource',
 
 var popupService = angular.module('popupService',[]);
 
-popupService.service('popupService', function($window){
-    			this.showPopup=function(message){
+popupService.service('popupService',
+		function($window){
+    		this.showPopup=function(message){
         		return $window.confirm(message);
 			}
 		});
