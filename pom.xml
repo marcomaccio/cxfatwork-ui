@@ -586,107 +586,25 @@
     </reporting>
 
     <profiles>
-        <profile>
-            <id>local-depl-osgi</id>
-            <properties>
-                <deployment.host>localhost</deployment.host>
-                <deployment.port>8181</deployment.port>
-                <deployment.webContext/>
-                <deployment.servletContext>/cxf</deployment.servletContext>
-                <deployment.servicePath>/crm/provisioning</deployment.servicePath>
-                <deployment.serviceVersion>/v1</deployment.serviceVersion>
-                <deployment.serviceInterface>/customerprovisioning</deployment.serviceInterface>
-                <deployment.resourcePath>/customers</deployment.resourcePath>
-            </properties>
-        </profile>
 
         <profile>
-            <id>local-depl-j2se-hsqldb</id>
-            <properties>
-                <!-- SERVICE LAYER PROPERTIES -->
-                <deployment.host>localhost</deployment.host>
-                <deployment.port>9191</deployment.port>
-                <deployment.webContext/>
-                <deployment.servletContext>/cxf</deployment.servletContext>
-                <deployment.servicePath>/crm/provisioning</deployment.servicePath>
-                <deployment.serviceVersion>/v1</deployment.serviceVersion>
-                <deployment.serviceInterface>/customerprovisioning</deployment.serviceInterface>
-                <deployment.resourcePath>/customers</deployment.resourcePath>
-
-                <!-- DATA ACCESS LAYER PROPERTIES -->
-                <deployment.jdbcDriverName>org.hsqldb.jdbc.JDBCDriver</deployment.jdbcDriverName>
-                <deployment.jdbcUrl>jdbc:hsqldb:mem:gestimmo</deployment.jdbcUrl>
-                <deployment.jdbcUserName>sa</deployment.jdbcUserName>
-                <deployment.jdbcPassword></deployment.jdbcPassword>
-                <deployment.jdbcEncoding>UTF8</deployment.jdbcEncoding>
-                <deployment.schemaFileName>schema-hsqldb.sql</deployment.schemaFileName>
-
-                <deployment.ddl-generation>create-tables</deployment.ddl-generation>
-                <deployment.createSchemaFilename>create-tables-hsqldb.sql</deployment.createSchemaFilename>
-                <deployment.dropSchemaFilename>drop-tables-hsqldb.sql</deployment.dropSchemaFilename>
-                <deployment.dataTypeFactory>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</deployment.dataTypeFactory>
-                <deployment.metadataHandler/>
-
-                <deployment.createCustomers>src/integration-test/data/create-customers.xml</deployment.createCustomers>
-                <liquibase.contexts>test</liquibase.contexts>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>local-depl-j2se-mysql</id>
-            <properties>
-                <application.log.level>DEBUG</application.log.level>
-                <!-- SERVICE LAYER PROPERTIES -->
-                <deployment.host>localhost</deployment.host>
-                <deployment.port>9191</deployment.port>
-                <deployment.webContext/>
-                <deployment.servletContext>/cxf</deployment.servletContext>
-                <deployment.servicePath>/crm/provisioning</deployment.servicePath>
-                <deployment.serviceVersion>/v1</deployment.serviceVersion>
-                <deployment.serviceInterface>/customerprovisioning</deployment.serviceInterface>
-                <deployment.resourcePath>/customers</deployment.resourcePath>
-
-                <!-- DATA ACCESS LAYER PROPERTIES -->
-                <deployment.jdbcDriverName>com.mysql.jdbc.Driver</deployment.jdbcDriverName>
-                <deployment.jdbcUrl>jdbc:mysql://localhost:3306/gestimmo</deployment.jdbcUrl>
-                <deployment.jdbcUserName>gestimmo</deployment.jdbcUserName>
-                <deployment.jdbcPassword>Gestimmo@2013!</deployment.jdbcPassword>
-                <deployment.jdbcEncoding>UTF8</deployment.jdbcEncoding>
-                <deployment.schemaFileName>src/integration-test/data/schema-mysql.sql</deployment.schemaFileName>
-
-                <deployment.ddl-generation>create-tables</deployment.ddl-generation>
-                <deployment.createSchemaFilename>create-tables-mysql.sql</deployment.createSchemaFilename>
-                <deployment.dropSchemaFilename>drop-tables-mysql.sql</deployment.dropSchemaFilename>
-                <deployment.dataTypeFactory>org.dbunit.ext.mysql.MySqlDataTypeFactory</deployment.dataTypeFactory>
-                <deployment.metadataHandler>org.dbunit.ext.mysql.MySqlMetadataHandler</deployment.metadataHandler>
-
-                <deployment.createCustomers>src/integration-test/data/create-customers.xml</deployment.createCustomers>
-                <liquibase.contexts>test</liquibase.contexts>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>all-tests</id>
-            <properties>
-                <build.profile.id>all-tests</build.profile.id>
-                <!-- All tests are run. -->
-                <skip.integration.tests>false</skip.integration.tests>
-                <skip.unit.tests>false</skip.unit.tests>
-            </properties>
-        </profile>
-        <profile>
-            <id>dev</id>
-        </profile>
-
-        <profile>
-            <id>integration-test</id>
-            <properties>
-                <!-- Used to locate the profile specific configuration file. -->
-                <build.profile.id>integration-test</build.profile.id>
-                <!-- Only integration tests are run. -->
-                <skip.integration.tests>false</skip.integration.tests>
-                <skip.unit.tests>true</skip.unit.tests>
-            </properties>
+                <id>sonarqube</id>
+                <activation>
+                    <activeByDefault>true</activeByDefault>
+                </activation>
+                <properties>
+                    <sonar.host.url>http://qms.maccio-ch.homelinux.net/sonarqube</sonar.host.url>
+                    <!-- <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>  Ensure you run mvn install before sonar:sonar -->
+                    <sonar.language>js,html</sonar.language>
+                    <sonar.scm.disabled>false</sonar.scm.disabled>
+                    <sonar.scm-stats.enabled>true</sonar.scm-stats.enabled>
+                    <sonar.sources>${project.basedir}/src/main/webapp</sonar.sources>
+                    <sonar.projectBaseDir>.</sonar.projectBaseDir>
+                    <sonar.exclusions>${project.basedir}/src/main/webapp/bower_components</sonar.exclusions>
+                    <sonar.javascript.lcov.reportPath>${project.build.directory}/karma-coverage/**/*lcov.info</sonar.javascript.lcov.reportPath>
+                    <sonar.javascript.jstestdriver.reportsPath>${project.build.directory}/surefire-reports/</sonar.javascript.jstestdriver.reportsPath>
+                    <sonar.tests>${project.basedir}/src/tests/js/</sonar.tests>
+                </properties>
         </profile>
 
 
