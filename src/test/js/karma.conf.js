@@ -20,7 +20,12 @@ module.exports = function(config) {
       'src/main/webapp/bower_components/angular-resource/angular-resource.js',
       'src/main/webapp/bower_components/angular-animate/angular-animate.js',
       'src/main/webapp/bower_components/angular-mocks/angular-mocks.js',
+      'src/main/webapp/bower_components/angular-loader/angular-loader.js',
+      'src/main/webapp/bower_components/angular-ui-router/release/angular-ui-router.js',
       'src/main/webapp/js/**/*.js',
+      'src/main/webapp/js/app.js',
+      'src/main/webapp/js/controllers.js',
+      'src/main/webapp/js/services.js',
       'src/test/js/unit/**/*.js'
     ],
 
@@ -36,37 +41,43 @@ module.exports = function(config) {
     preprocessors: {
     },
 
-
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
-
+    reporters: ['progress', 'junit'],
 
     // web server port
     port: 9876,
 
-
     // enable / disable colors in the output (reporters and logs)
     colors: true,
-
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_DEBUG,
 
-
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
 
-
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox'],
+    browsers: ['Chrome'],
 
+    plugins : [
+                'karma-junit-reporter',
+                'karma-chrome-launcher',
+                'karma-firefox-launcher',
+                'karma-phantom-launcher',
+                'phantomjs',
+                'karma-jasmine'
+                ],
+
+    junitReporter: {
+                outputFile: 'target/surefire-reports/TEST-karma.xml'
+            },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true
   })
 }

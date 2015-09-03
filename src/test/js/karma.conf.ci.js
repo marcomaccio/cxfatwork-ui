@@ -1,27 +1,53 @@
 var baseConfig = require('./karma.conf.js');
 
 module.exports = function (config) {
+
     // Load base config
     baseConfig(config);
 
     // Override base config
     config.set({
+
         singleRun: true,
+
         colors:    false,
+
         autoWatch: false,
+
         reporters: ['progress', 'junit', 'coverage'],
+
         preprocessors:    {
-            'src/main/webapp/resources/js/**/*.js':   ['coverage']
+
+            'src/main/webapp/js/**/*.js':   ['coverage']
+
         },
-        browsers:  ['Firefox'],
+
+        browsers:  ['Chrome'],
+
+        plugins : [
+                    'karma-junit-reporter',
+                    'karma-chrome-launcher',
+                    'karma-phantomjs-launcher',
+                    'karma-firefox-launcher',
+                    'karma-jasmine',
+                    'karma-coverage'
+                    ],
+
         junitReporter: {
-            outputFile: 'reports/junit/TESTS-xunit.xml'
+            outputDir:  'target/surefire-reports/',
+            outputFile: 'target/surefire-reports/TEST-karma.xml'
+
         },
+
         coverageReporter: {
+
             type:   'lcov',
-            dir:    'reports',
-            subdir: 'coverage'
+
+            dir:    'target/karma-coverage'
+
         }
+
     });
+
 };
 
