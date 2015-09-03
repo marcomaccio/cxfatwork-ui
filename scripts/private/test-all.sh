@@ -29,7 +29,7 @@ for i in {0..12}
 do
   git checkout -f step-$i
 
-  node_modules/karma/bin/karma start test/karma.conf.js --single-run
-  node_modules/.bin/protractor test/protractor-conf.js
+  node_modules/karma/bin/karma start src/test/js/karma.conf.js --single-run
+  node_modules/.bin/protractor src/test/js/protractor-conf.js
 
 done
