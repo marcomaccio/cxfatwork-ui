@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var karma = require('karma').server;
+var Server = require('karma').Server;
 var replace = require('gulp-replace');
 
 var postprocessLCOV = function() {
@@ -8,8 +8,14 @@ var postprocessLCOV = function() {
         .pipe(gulp.dest('reports/coverage'));
 };
 
-gulp.task('test', function () {
-    karma.start({
-        configFile: __dirname + '/src/test/js/karma.conf.ci.js'
-    }, postprocessLCOV);
+gulp.task('test', function (done){
+
+    new Server({
+        configFile: __dirname + '/src/test/js/karma.conf.ci.js',
+        singleRun: true
+    }, done).start();
+
+    //karma.start({
+    //    configFile: __dirname + '/src/test/js/karma.conf.ci.js'
+    //}, postprocessLCOV);
 });
