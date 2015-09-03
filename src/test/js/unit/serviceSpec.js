@@ -1,26 +1,44 @@
 "use strict";
 
-ddescribe("cxfatwork api service", function(){
-    var cxfatworkService, httpBackend;
+describe("cxfatwork api service", function(){
 
-    beforeEach(module("cxfTutorialApp"));
+    var cxfatworkService;
+    var $rootScope;
+    var $scope;
+    var $httpBackend;
 
-    beforeEach(module(function($provide) {
-      $provide.value("ngResource", cxfatworkService);
-    }));
+    beforeEach(function(){
+        module('cxfTutorialApp');
+        inject(function($injector){
+            // Set up the mock http service responses
+            $httpBackend = $injector.get('$httpBackend');
 
-    beforeEach(inject(function (_cxfTutorialServices_, _$httpBackend_) {
-        cxfatworkService = _cxfTutorialServices_;
-        httpBackend = _$httpBackend_;
-    }));
+            // Get hold of a scope (i.e. the root scope)
+            $rootScope = $injector.get('$rootScope');
+            $scope = $rootScope.$new();
 
-    iit('should show a list of 7 "customers"', function(){
-        $httpBackend.expect('GET', '/http://localhost:9191/cxf/crm/provisioning/v1/customerprovisioning/customers/').respond(200, 'success');
-        cxfatworkService.query();
+            cxfatworkService = $injector.get('CustomerService');
+
+        });
+    });
+
+    afterEach(function() {
+        // Verifies that all of the requests defined via the expect api were made.
+        // If any of the requests were not made, verifyNoOutstandingExpectation
+        // throws an exception.
+        $httpBackend.verifyNoOutstandingExpectation();
+
+        // Verifies that there are no outstanding requests that need to be flushed.
+        $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it("when call customers should return a list of customers", function () {
+
         $httpBackend.flush();
-        httpBackend.whenGET('http://localhost:9191/cxf/crm/provisioning/v1/customerprovisioning/customers/').respond({
+
+        $httpBackend.whenGET('http://localhost:9191/cxf/crm/provisioning/v1/customerprovisioning/customers/').respond({
             data : {
-                 "total_records": 1,
+                 "total_records": 7,
                  "customers": [
                    {
                      "id": 1,
@@ -41,25 +59,25 @@ ddescribe("cxfatwork api service", function(){
                      "customerId": "003"
                    },
                    {
-                     "id": 651,
+                     "id": 4,
                      "firstname": "Marco",
                      "lastname": "Maccio",
                      "customerId": "00001"
                    },
                    {
-                     "id": 652,
+                     "id": 5,
                      "firstname": "Marco",
                      "lastname": "Maccio",
                      "customerId": "00001"
                    },
                    {
-                     "id": 701,
+                     "id": 6,
                      "firstname": "Marco",
                      "lastname": "Maccio",
                      "customerId": "1970"
                    },
                    {
-                     "id": 702,
+                     "id": 7,
                      "firstname": "New User",
                      "lastname": "MacAPP",
                      "customerId": "1197"
@@ -68,10 +86,11 @@ ddescribe("cxfatwork api service", function(){
                }
         });
 
-        cxfatworkService.query();
+        expect(cxfatworkService.query()).toBe(7);
+        $httpBackend.flush();
 
 
-        httpBackend.flush();
-        expect(cxfatworkService.customers.lenght).toBe(7);
     });
+
+
 });
