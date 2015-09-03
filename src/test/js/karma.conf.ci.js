@@ -22,7 +22,7 @@ module.exports = function (config) {
 
         },
 
-        browsers:  ['Chrome'],
+        browsers:  ['PhantomJS'],
 
         plugins : [
                     'karma-junit-reporter',
